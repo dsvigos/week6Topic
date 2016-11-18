@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+		const PUBLIC_KEY = 'dc6zaTOxFJmzC';
+		const BASE_URL = 'http://api.giphy.com/v1/gifs/';
+		const ENDPOINT = 'search';
+		const LIMIT = 10;
+
+		var topics = ["Lord of the Rings", "Atlas Shrugged", "In Search of Lost Time", "Ulysses", "Don Quixote", "Moby Dick", "War and Peace", "The Great Gatsby"];
+		
+    
+      </script>
+      
+      <script type="text/javascript">
+
+	function displayButtons(){
+
+	for(var i = 0; i < topics.length; i++)
+		{	
+			document.write("<div>");
+		
+			document.write("<input type='button' value='" + topics[i] + "' class='topicButton'/>");
+			
+			document.write("</div>");
+			
+		
+		}
+		
+	}
+	
+	
+         
+    </script>
+      
+      <script>
+	  
+	  	$(document).ready(function(){
+			
+			$('.topicButton').click(function(){ 
+			
+				
+				$.ajax({
+					
+					url:  BASE_URL + ENDPOINT + '?q=' + (this.value) + '&api_key=' + PUBLIC_KEY,
+					data: {
+      			    format: 'json'
+    				      },
+					
+					error: function() {
+       				  $('#info').html('<p>An error has occurred</p>');
+    				  },
+    			    dataType: 'jsonp',
+      				success: function(data) {
+						
+						console.log(data[0].bitly_url);
+						document.write('<p>Success</p>');
+						
+     				   
+     					 },
+                       type: 'GET'
+					
+					}); //close ajax
+			
+			});//close click function
+			
+		});//close document.ready function
+	  
+		</script>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Giphy Love</title>
+</head>
+
+<body>
+
+<script type="text/javascript">
+
+displayButtons();
+
+</script>
+
+
+<form>
+  <h1>Please enter data</h1>
+  <input id="title" type="text" />
+  <input type="button" value="Save" onclick="insert()" />
+</form>
+<div id="display"></div>
+
+</body>
+<script type="text/javascript">
+
+var titleInput  = document.getElementById("title");
+var messageBox  = document.getElementById("display");
+
+function insert ( ) {
+ topics.push( titleInput.value );
+ clearAndShow();
+ displayButtons();
+}
+
+function clearAndShow () {
+  titleInput.value = "";
+
+  messageBox.innerHTML = "";
+
+  messageBox.innerHTML += "Titles: " + topics.join(", ") + "<br/>";
+}
+       
+
+</script>
+
+</html>
